@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div>
+
+
+
+<h1 class="title toc-ignore">Analysis of the Boston Dataset</h1>
+<h4 class="author">Vishal Sharma</h4>
+<h4 class="author"><a rel="noopener" href="mailto:vsharma1@une.edu" class="email">vsharma1@une.edu</a></h4>
+
+</div>
+
+
+<p>This report is due on 2023-10-26</p>
+<div class="section level1">
+<h1>Boston Dataset</h1>
+<pre class="r"><code>dataBoston &lt;- Boston 
+
+plot(dataBoston$lstat, dataBoston$crim, xlab = &quot;percentage lower status of the population&quot;,
+     ylab =&quot;per capita crime rate by town&quot; )</code></pre>
+<p><img src="javascript://" width="672"/></p>
+<pre class="r"><code>lm(dataBoston$crim~dataBoston$lstat, data = dataBoston)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = dataBoston$crim ~ dataBoston$lstat, data = dataBoston)
+## 
+## Coefficients:
+##      (Intercept)  dataBoston$lstat  
+##          -3.3305            0.5488</code></pre>
+</div>
+<div class="section level1">
+<h1>Transformed Responce Variable</h1>
+<pre class="r"><code>plot(dataBoston$lstat, log(dataBoston$crim), xlab = &quot;percentage lower status of the population&quot;,
+     ylab =&quot;log per capita crime rate by town&quot; )</code></pre>
+<p><img src="javascript://" width="672"/></p>
+<p>There exist a positive relationship between per capita crime rate by
+town and percentage lower status of the population and there is a low
+variation in the variables as compared to the other plot. The strength
+of the relationship is stronger than what exists without the transposed
+response variable.</p>
+</div>
+<div class="section level1">
+<h1>Model Comparison</h1>
+<pre class="r"><code>summary( lm(dataBoston$crim~dataBoston$lstat, data = dataBoston) )</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = dataBoston$crim ~ dataBoston$lstat, data = dataBoston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -13.925  -2.822  -0.664   1.079  82.862 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      -3.33054    0.69376  -4.801 2.09e-06 ***
+## dataBoston$lstat  0.54880    0.04776  11.491  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.664 on 504 degrees of freedom
+## Multiple R-squared:  0.2076, Adjusted R-squared:  0.206 
+## F-statistic:   132 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>summary( lm(log(dataBoston$crim)~dataBoston$lstat, data = dataBoston) )</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = log(dataBoston$crim) ~ dataBoston$lstat, data = dataBoston)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.0520 -1.3202 -0.3165  1.3216  5.1974 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      -3.18092    0.15267  -20.84   &lt;2e-16 ***
+## dataBoston$lstat  0.18972    0.01051   18.05   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.687 on 504 degrees of freedom
+## Multiple R-squared:  0.3926, Adjusted R-squared:  0.3914 
+## F-statistic: 325.8 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The model with the log transformed response variable has a better
+fit.</p>
+</div>
+<div class="section level1">
+<h1>Fitting Regression Lines</h1>
+<pre class="r"><code>plot(dataBoston$lstat, dataBoston$crim, xlab = &quot;percentage lower status of the population&quot;,
+     ylab =&quot;per capita crime rate by town&quot; , 
+     points(dataBoston$lstat, lm(dataBoston$crim~dataBoston$lstat)$fitted, type = &quot;l&quot;   ) )</code></pre>
+<p><img src="javascript://" width="672"/></p>
+<pre class="r"><code>plot(dataBoston$lstat, log(dataBoston$crim), xlab = &quot;percentage lower status of the population&quot;,
+     ylab =&quot;log per capita crime rate by town&quot;  )
+points(dataBoston$lstat, lm(log(dataBoston$crim)~dataBoston$lstat)$fitted, type = &quot;l&quot;   )</code></pre>
+<p><img src="javascript://" width="672"/></p>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="module" src="https://s.brightspace.com/lib/bsi/20.23.11-218/unbundled/mathjax.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					if (document.querySelector('math') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+						document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+							elm.setAttribute('style', 'display: block; height: 0.5rem;');
+						});
+
+						window.D2L.MathJax.loadMathJax({
+							'outputScale': 1.5,
+							'renderLatex': false
+						});
+					}
+				});</script><script type="module" src="https://s.brightspace.com/lib/bsi/20.23.11-218/unbundled/prism.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code);
+					});
+				});</script></body></html>
